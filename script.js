@@ -1,4 +1,5 @@
-let math = document.querySelector("#math");
+let expression = document.querySelector("#expression");
+
 let check = document.querySelector(".check");
 let operations = document.querySelectorAll("[data-operation]");
 let numbers = document.querySelectorAll("[data-number]");
@@ -11,47 +12,50 @@ let lastEl = "";
 
 // clearing the result box
 clear.addEventListener("click", () => {
-  math.innerText = "";
+  expression.innerText = "";
   prevRes.innerText = "0";
 });
 
 // deleting items in the result box
 remove.addEventListener("click", () => {
-  if (math.innerText !== "") {
-    let mathArr = math.innerText.split("");
+  if (expression.innerText !== "") {
+    let mathArr = expression.innerText.split("");
     mathArr.pop();
-    math.innerText = mathArr.join("");
+    expression.innerText = mathArr.join("");
   }
-});
-
-// typing operations
-operations.forEach((operation) => {
-  operation.addEventListener("click", () => {
-    let mathArr = math.innerText.split("");
-    lastEl = mathArr[mathArr.length - 1];
-    if (
-      (lastEl === "+" && operation.innerText === "+") ||
-      (lastEl === "-" && operation.innerText === "-") ||
-      (lastEl === "*" && operation.innerText === "*") ||
-      (lastEl === "/" && operation.innerText === "/") ||
-      (lastEl === "%" && operation.innerText === "%")
-    ) {
-      math.innerText = mathArr.join("");
-    } else {
-      math.innerText += operation.innerText;
-      lastEl = operation.innerText;
-    }
-  });
 });
 
 // typing numbers
 numbers.forEach((number) => {
   number.addEventListener("click", () => {
-    math.innerText += number.innerText;
+    expression.innerText += number.innerText;
     lastEl = number.innerText;
   });
 });
 
+// typing operations
+operations.forEach((operation) => {
+  operation.addEventListener("click", () => {
+    let expressionArr = expression.innerText.split("");
+    lastEl = expressionArr[expressionArr.length - 1];
+    if (expression.innerText.split("").length == 0) {
+      return;
+    } else {
+      if (
+        (lastEl === "+" && operation.innerText === "+") ||
+        (lastEl === "-" && operation.innerText === "-") ||
+        (lastEl === "*" && operation.innerText === "*") ||
+        (lastEl === "/" && operation.innerText === "/") ||
+        (lastEl === "%" && operation.innerText === "%")
+      ) {
+        expression.innerText = expressionArr.join("");
+      } else {
+        expression.innerText += operation.innerText;
+        lastEl = operation.innerText;
+      }
+    }
+  });
+});
 // calculating the result
 getResult.addEventListener("click", () => {
   if (
@@ -65,12 +69,19 @@ getResult.addEventListener("click", () => {
     check.innerHTML = "&#33; Wrong Expression";
   } else {
     check.innerHTML = "";
-    prevRes.innerText = eval(math.innerText).toLocaleString("en-US");
-    math.innerText = "";
+    prevRes.innerText = eval(expression.innerText).toLocaleString("en-US");
+    expression.innerText = "";
   }
 });
 
 // square root
 sqrt.addEventListener("click", () => {
-  prevRes.innerText = Math.sqrt(math.innerText).toLocaleString("en-US");
+  if (expression.innerText !== "") {
+    prevRes.innerText = Math.sqrt(expression.innerText).toLocaleString("en-US");
+    expression.innerText = "";
+  } else {
+    prevRes.innerText = Math.sqrt(
+      prevRes.innerText.replaceAll(",", "")
+    ).toLocaleString("es-US");
+  }
 });
