@@ -27,7 +27,6 @@ remove.addEventListener("click", () => {
 // typing operations
 operations.forEach((operation) => {
   operation.addEventListener("click", () => {
-    if(math.innetText !== ''){
     let mathArr = math.innerText.split("");
     lastEl = mathArr[mathArr.length - 1];
     if (
@@ -41,7 +40,6 @@ operations.forEach((operation) => {
     } else {
       math.innerText += operation.innerText;
       lastEl = operation.innerText;
-    }
     }
   });
 });
