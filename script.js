@@ -1,5 +1,4 @@
 let expression = document.querySelector("#expression");
-
 let check = document.querySelector(".check");
 let operations = document.querySelectorAll("[data-operation]");
 let numbers = document.querySelectorAll("[data-number]");
@@ -46,7 +45,13 @@ operations.forEach((operation) => {
         (lastEl === "-" && operation.innerText === "-") ||
         (lastEl === "*" && operation.innerText === "*") ||
         (lastEl === "/" && operation.innerText === "/") ||
-        (lastEl === "%" && operation.innerText === "%")
+        (lastEl === "%" && operation.innerText === "%") ||
+        (lastEl === "*" && operation.innerText === "/") ||
+        (lastEl === "/" && operation.innerText === "*") ||
+        (lastEl === "%" && operation.innerText === "*") ||
+        (lastEl === "%" && operation.innerText === "/") ||
+        (lastEl === "*" && operation.innerText === "%") ||
+        (lastEl === "/" && operation.innerText === "%")
       ) {
         expression.innerText = expressionArr.join("");
       } else {
